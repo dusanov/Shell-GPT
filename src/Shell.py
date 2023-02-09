@@ -32,11 +32,14 @@ def do_a_prompt(prompt,log):
     global session
     session_prompt = f"\n{datetime.datetime.now()} Prompt:\n {prompt}\n"    
     session += session_prompt
-    print(session_prompt)
     response = make_a_call(session).encode('utf-8', 'replace').decode()
     response = f"\n{datetime.datetime.now()} Answer:\n {response}\n"
-    print(response)
+    print(f"{response}")
     session += response
     log.write(session_prompt)
     log.write(response)
     return tokens_used
+
+def reset_session():
+    global session
+    session = ""
