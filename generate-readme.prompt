@@ -1,0 +1,33 @@
+Please generate README file using markdown syntax based on following description:
+Shell GPT - OpenAI ChatGPT shell interface
+
+Features
+
+session context
+token counter
+saves session to log file
+comand line prompting
+load prompt from file
+
+
+Installation
+
+git clone <url>
+cd <dir>
+pip install -r requirements
+
+create bash function in .bashrc
+reload .bashrc
+
+Usage:
+
+Direct prompt from cmd line:
+
+<alias> Please be informed that today is Wednesday, weather is cold and sunny and I'm about to finish development of Shell GPT. Please generate me a haiku of the day.
+
+Load prompt from file:
+
+<alias> file <filepath>
+
+
+to end session type 'thx'
