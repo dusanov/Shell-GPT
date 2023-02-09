@@ -36,7 +36,7 @@ Shell GPT is an OpenAI ChatGPT shell interface that provides an interactive expe
 
 To get a response from Shell GPT, use the alias you created in the `.bashrc` file and type your query. For example:
 
-`<alias> <prompt for shell gpt>
+`<alias> <prompt for shell gpt>`
 
 
 ### Load prompt from file
