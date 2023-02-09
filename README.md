@@ -36,13 +36,12 @@ Shell GPT is an OpenAI ChatGPT shell interface that provides an interactive expe
 
 To get a response from Shell GPT, use the alias you created in the `.bashrc` file and type your query. For example:
 
-`<alias> Please be informed that today is Wednesday, weather is cold and sunny and I'm about to finish development of Shell GPT. Please generate me a haiku of the day.`
+`<alias> <prompt for shell gpt>
 
 
 ### Load prompt from file
 
-You can also load a prompt from a file:
-
+You can also load a prompt from a file by using `file` command:
 `<alias> file <filepath>`
 
 To end the session, type `thx`, `bye`, `quit` or `exit`. 
