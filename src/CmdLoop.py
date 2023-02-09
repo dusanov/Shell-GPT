@@ -3,7 +3,7 @@ import cmd
 from Shell import reset_session, do_a_prompt
 
 class CmdLoop(cmd.Cmd):
-    intro = """ Shell interface for OpenAI Chat GPT Prompt """
+    """ Shell interface for OpenAI Chat GPT Prompt """
 
     prompt = f' [0]: '
     last_output = ''

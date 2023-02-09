@@ -15,13 +15,20 @@ Shell GPT is an OpenAI ChatGPT shell interface that provides an interactive expe
 1. Clone the repository: `git clone <url>`
 2. Change directory: `cd <dir>`
 3. Install requirements: `pip install -r requirements`
-4. Create a bash function in `.bashrc`
+4. Add you OpenAI api key to `.bashrc`:
+    ```
+    export OPENAI_API_KEY=<your-api-key-here>
+    ```
+5. Create a bash function in `.bashrc`
     ```
     <alias>() {
         python3 <dir>/src/main.py $*
     }
     ```
-5. Reload `.bashrc`
+6. Reload `.bashrc`
+    ```
+    source ~/.bashrc
+    ```
 
 ## Usage
 
@@ -38,9 +45,9 @@ You can also load a prompt from a file:
 
 `<alias> file <filepath>`
 
-To end the session, type `thx` or `bye` or `quit`. 
+To end the session, type `thx`, `bye`, `quit` or `exit`. 
 
-Enjoy the interactive experience of Shell GPT and never leave your console again ! :)
+**Enjoy the interactive experience of Shell GPT and never leave your console again ! :)**
 
 
 ## Examples
@@ -59,46 +66,6 @@ dusan:shell-gpt$ <alias> Please be informed that today is Wednesday, weather is 
 The sun is cold and bright
 A chill in the winter air
 A new shell is born
-
- [0]:
-```
-
-
-```dusan:shell-gpt$ <alias> would you know how to update cmd prompt on each command in python cmd module ?
- -- logging to: chat-sessions/ouknowhowtoupdatecmdpromptonea.log
-
-2023-02-09 13:17:06.164839 Prompt:
- would you know how to update cmd prompt on each command in python cmd module ?
-
-
-2023-02-09 13:17:14.606255 Answer:
-
-Yes, you can use the cmd.Cmd.onecmd() method to update the prompt after each command in the Python cmd module. This method takes in a string representing the command and executes it, updating the prompt accordingly.
-
- [0]: please provide example
-
-2023-02-09 13:17:34.475930 Prompt:
- please provide example
-
-
-2023-02-09 13:17:45.609447 Answer:
-
-2023-02-09 13:17:45.828819 Answer:
-
-Here is an example of using the cmd.Cmd.onecmd() method to update the prompt after each command:
-
-import cmd
-
-class MyPrompt(cmd.Cmd):
-    prompt = "MyPrompt> "
-
-    def do_hello(self, arg):
-        print("Hello!")
-        self.onecmd("prompt MyPrompt# ")
-
-MyPrompt().cmdloop()
-
-When you run this code, the prompt will update from "MyPrompt> " to "MyPrompt# " after you type in the "hello" command.
 
  [0]:
 ```
