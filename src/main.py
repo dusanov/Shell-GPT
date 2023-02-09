@@ -17,7 +17,6 @@ isExist = os.path.exists(path)
 try:    
     if not isExist:
         os.makedirs(path)
-
     if __name__ == '__main__':
         with open(f"{path}{filename}.log", "a+") as logfile:
             loop = CmdLoop(logfile)

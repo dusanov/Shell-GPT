@@ -30,10 +30,11 @@ def make_a_call(prompt):
 
 def do_a_prompt(prompt,log):
     global session
+    global tokens_used
     session_prompt = f"\n{datetime.datetime.now()} Prompt:\n {prompt}\n"    
     session += session_prompt
     response = make_a_call(session).encode('utf-8', 'replace').decode()
-    response = f"\n{datetime.datetime.now()} Answer:\n {response}\n"
+    response = f"\n{datetime.datetime.now()} [{tokens_used}] Answer:\n {response}\n"
     print(f"{response}")
     session += response
     log.write(session_prompt)
