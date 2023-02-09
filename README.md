@@ -55,11 +55,6 @@ To end the session, type `thx`, `bye`, `quit` or `exit`.
 ```
 dusan:shell-gpt$ <alias> Please be informed that today is Wednesday, weather is cold and sunny and I'm about to finish development of Shell GPT. Please generate me a haiku of the day.
 > '
- -- logging to: chat-sessions/beinformedthattodayisWednesday.log
-
-2023-02-09 13:26:00.821708 Prompt:
- Please be informed that today is Wednesday, weather is cold and sunny and Im about to finish development of Shell GPT. Please generate me a haiku of the day.
-
 
 2023-02-09 13:26:08.923322 Answer:
 
@@ -72,13 +67,7 @@ A new shell is born
 
 ```
 dusan:shell-gpt$ <alias> file generate-cat-haiku.prompt
- -- logging to: chat-sessions/nerate-cat-haiku.prompt.log
-
-2023-02-09 13:34:11.447691 Prompt:
- Please genrate haiku about black cat on a cold winter day
-
-
-
+ 
 2023-02-09 13:34:15.987140 Answer:
  The server had an error while processing your request. Sorry about that!
 
@@ -92,13 +81,6 @@ src
 
  [0]: file generate-cat-haiku.prompt
 
-2023-02-09 13:34:38.209456 Prompt:
- Please genrate haiku about black cat on a cold winter day
-
-
-
-2023-02-09 13:34:43.731249 Answer:
-
 2023-02-09 13:34:41.377769 Answer:
 Black cat on snow-covered ground
 Cozy and content in its fur
@@ -108,13 +90,8 @@ A winter's peace found.
 ```
 
 ```
-dusan:shell-gpt$ <alias> please generate git ignore file with the default python files, please also include 'chat-sessions' folde
- -- logging to: chat-sessions/generategitignorefilewiththede.log
-
-2023-02-09 13:50:20.291205 Prompt:
- please generate git ignore file with the default python files, please also include chat-sessions folde
-
-
+dusan:shell-gpt$ <alias> please generate git ignore file with the default python files, please also include 'chat-sessions' folder
+ 
 2023-02-09 13:51:17.703056 Answer:
 
 # Created by https://www.gitignore.io/api/python
@@ -146,9 +123,6 @@ chat-sessions/
 
 2023-02-09 13:51:30.679974 Prompt:
  what should be the name of the file ?
-
-
-2023-02-09 13:51:39.060333 Answer:
 
 2023-02-09 13:52:07.711390 Answer:
 The file should be named ".gitignore".
