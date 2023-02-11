@@ -11,7 +11,7 @@ max_tokens=1024
 session = ""
 
 
-def make_a_completion_call(prompt):
+def make_a_completion_call(prompt, stream=False):
     global tokens_used_per_session
     response = "testing"
     try:
@@ -22,9 +22,24 @@ def make_a_completion_call(prompt):
             n=1,
             stop=None,
             temperature=0.5,
+            stream=stream
         )
-        response = f"{completion.choices[0].text}"
-        tokens_used += completion.usage.total_tokens
+        if stream:
+            # collected_events = []
+            completion_text = ''
+            print(f"\n")
+            for event in completion:
+                # collected_events.append(event)
+                event_text = event['choices'][0]['text']
+                completion_text += event_text
+                print(f"{event_text}",end="")
+            print(f"\n")
+            response = f"{completion_text}"
+            tokens_used_per_session += num_tokens_from_string(response)
+        else:
+            response = f"{completion.choices[0].text}"
+            print(f"{response}")
+            tokens_used_per_session += completion.usage.total_tokens
     except Exception as e:
         response = f"{e}"    
     return response
@@ -34,12 +49,11 @@ def do_a_prompt(prompt,log):
     global tokens_used_per_session
     session_prompt = f"\n{datetime.datetime.now()} Prompt:\n {prompt}\n"    
     session += session_prompt
-    response = make_a_completion_call(session)#.encode('utf-8', 'replace').decode()
-    response = f"\n{datetime.datetime.now()} [{tokens_used_per_session}] Answer:\n {response}\n"
-    print(f"{response}")
-    session += response
+    response_text = make_a_completion_call(session,stream=True)#.encode('utf-8', 'replace').decode()
+    response_text = f"\n{datetime.datetime.now()} [{tokens_used_per_session}] Answer:\n {response_text}\n"
+    session += response_text
     log.write(session_prompt)
-    log.write(response)
+    log.write(response_text)
     return tokens_used_per_session
 
 def reset_session():
