@@ -1,17 +1,18 @@
 import os
 import openai
 import datetime
+import tiktoken
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
-model_engine = "text-davinci-003"
+model_engine = "text-davinci-003" #"text-ada-001"
 
-tokens_used = 0
+tokens_used_per_session = 0
 max_tokens=1024
 session = ""
 
 
-def make_a_call(prompt):
-    global tokens_used
+def make_a_completion_call(prompt):
+    global tokens_used_per_session
     response = "testing"
     try:
         completion = openai.Completion.create(
@@ -30,17 +31,40 @@ def make_a_call(prompt):
 
 def do_a_prompt(prompt,log):
     global session
-    global tokens_used
+    global tokens_used_per_session
     session_prompt = f"\n{datetime.datetime.now()} Prompt:\n {prompt}\n"    
     session += session_prompt
-    response = make_a_call(session).encode('utf-8', 'replace').decode()
-    response = f"\n{datetime.datetime.now()} [{tokens_used}] Answer:\n {response}\n"
+    response = make_a_completion_call(session)#.encode('utf-8', 'replace').decode()
+    response = f"\n{datetime.datetime.now()} [{tokens_used_per_session}] Answer:\n {response}\n"
     print(f"{response}")
     session += response
     log.write(session_prompt)
     log.write(response)
-    return tokens_used
+    return tokens_used_per_session
 
 def reset_session():
     global session
     session = ""
+
+def list_models():
+    try:
+        response = []
+        for model in openai.Model.list().data:
+            response.append(model.id)
+        response = f"\n".join(response)
+    except Exception as e:
+        response = f"{e}"
+    return response
+
+def current_model():
+    return model_engine
+
+def set_model(model):
+    global model_engine
+    model_engine = model
+
+def num_tokens_from_string(string: str, encoding_name: str = "gpt2") -> int:
+    """Returns the number of tokens in a text string."""
+    encoding = tiktoken.get_encoding(encoding_name)
+    num_tokens = len(encoding.encode(string))
+    return num_tokens

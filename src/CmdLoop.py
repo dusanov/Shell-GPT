@@ -1,6 +1,12 @@
 import os
 import cmd
-from Shell import reset_session, do_a_prompt
+from typing import Any
+from Shell import reset_session, \
+                    do_a_prompt, \
+                    list_models, \
+                    current_model, \
+                    set_model, \
+                    num_tokens_from_string
 
 class CmdLoop(cmd.Cmd):
     """ Shell interface for OpenAI Chat GPT Prompt """
@@ -8,7 +14,26 @@ class CmdLoop(cmd.Cmd):
     prompt = f' [0]: '
     last_output = ''
 
-    def do_reset(self,line):
+    def do_set_model(self,line):
+        if len(line) > 0:
+            set_model(line)
+            print(f"\n -- model set to:\n {current_model()} \n")
+        else:
+            print(f" -- please provide model name")
+
+    def do_current_model(self,line):
+        if len(line) == 0:
+            print(f"\n -- current model:\n {current_model()} \n")
+        else:
+            self.default(f"current models {line}")
+
+    def do_list_models(self,line):
+        if len(line) == 0:
+            print(f"\n -- available models:\n {list_models()} \n")
+        else:
+            self.default(f"list models {line}")
+
+    def do_reset_session(self,line):
         if len(line) == 0:
             print(f"\n -- session reset \n")
             reset_session()
@@ -22,8 +47,8 @@ class CmdLoop(cmd.Cmd):
         self.last_output = output
 
     def __init__(self, logfile):
-        super().__init__()
         self.logfile = logfile
+        super().__init__()
     
     def do_logfilename (self, line):
         if len(line) == 0:
@@ -85,5 +110,5 @@ class CmdLoop(cmd.Cmd):
         print(f"\n -- EOF {line} \n ")
         return True
     
-    def postcmd(self, stop, line):
-        return cmd.Cmd.postcmd(self, stop, line)
+    def completedefault(self, *ignored: Any):
+        print(f"\r [{num_tokens_from_string(ignored[1])}]: {ignored[1]}", end='')
