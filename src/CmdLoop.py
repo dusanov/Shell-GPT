@@ -14,6 +14,9 @@ class CmdLoop(cmd.Cmd):
     prompt = f' [0]: '
     last_output = ''
 
+    def default(self, line):
+        self.send_to_prompt(line)
+
     def do_set_model(self,line):
         if len(line) > 0:
             set_model(line)
@@ -63,9 +66,6 @@ class CmdLoop(cmd.Cmd):
         else:
             print(f"\n -- prompt not long enough \n")        
 
-    def default(self, line):
-        self.send_to_prompt(line)  
-
     def emptyline(self):
         pass
 
@@ -80,28 +80,24 @@ class CmdLoop(cmd.Cmd):
 
     def do_thx(self,_):
         if len(_) == 0:
-            print(f"\n -- bye \n")
             return True  
         else:
             self.default(f"thx {_}")     
 
     def do_bye(self,_):
         if len(_) == 0:
-            print(f"\n -- bye \n")
             return True      
         else:
             self.default(f"bye {_}")
 
     def do_quit(self,_):
         if len(_) == 0:
-            print(f"\n -- bye \n")
             return True      
         else:
             self.default(f"quit {_}")
 
     def do_exit(self,_):
         if len(_) == 0:
-            print(f"\n -- bye \n")
             return True      
         else:
             self.default(f"exit {_}")

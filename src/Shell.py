@@ -4,19 +4,19 @@ import datetime
 import tiktoken
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
-model_engine = "text-davinci-003" #"text-ada-001"
+COMPLETIONS_MODEL = "text-davinci-003" #"text-ada-001"
+EMBEDDING_MODEL = "text-embedding-ada-002"
 
 tokens_used_per_session = 0
 max_tokens=1024
 session = ""
-
 
 def make_a_completion_call(prompt, stream=False):
     global tokens_used_per_session
     response = "testing"
     try:
         completion = openai.Completion.create(
-            engine=model_engine,
+            engine=COMPLETIONS_MODEL,
             prompt=prompt,
             max_tokens=max_tokens,
             n=1,
@@ -25,11 +25,9 @@ def make_a_completion_call(prompt, stream=False):
             stream=stream
         )
         if stream:
-            # collected_events = []
             completion_text = ''
             print(f"\n")
             for event in completion:
-                # collected_events.append(event)
                 event_text = event['choices'][0]['text']
                 completion_text += event_text
                 print(f"{event_text}",end="")
@@ -71,11 +69,11 @@ def list_models():
     return response
 
 def current_model():
-    return model_engine
+    return COMPLETIONS_MODEL
 
 def set_model(model):
-    global model_engine
-    model_engine = model
+    global COMPLETIONS_MODEL
+    COMPLETIONS_MODEL = model
 
 def num_tokens_from_string(string: str, encoding_name: str = "gpt2") -> int:
     """Returns the number of tokens in a text string."""
